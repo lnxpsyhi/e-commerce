@@ -1,3 +1,4 @@
+import AddToBasketButton from "@/components/AddToBasketButton";
 import { formatPrice } from "@/lib/formatPrice";
 import { imageUrl } from "@/lib/imageUrl";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
@@ -48,6 +49,9 @@ const Product = async ({ params }: { params: Promise<{ slug: string }> }) => {
                 <PortableText value={product.description} />
               )}
             </div>
+          </div>
+          <div className="mt-6">
+            <AddToBasketButton product={product} disabled={isOutOfStock} />
           </div>
         </div>
       </div>

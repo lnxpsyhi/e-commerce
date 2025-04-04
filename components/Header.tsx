@@ -10,10 +10,15 @@ import {
 } from "@clerk/nextjs";
 import Link from "next/link";
 import Form from "next/form";
-import { Package, ShoppingCart } from "lucide-react";
+import { Package, ShoppingBasketIcon } from "lucide-react";
+import useBasketStore from "@/app/store";
+import { Badge } from "./ui/badge";
 
 const Header = () => {
   const { user } = useUser();
+  const itemCount = useBasketStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0)
+  );
 
   const createClerkPassKey = async () => {
     try {
@@ -48,17 +53,23 @@ const Header = () => {
         <div className="flex items-center space-x-4 sm:mt-0  flex-1">
           <Link
             href="/basket"
-            className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
           >
-            <ShoppingCart className="w-6 h-6" />
-            <span>Basket</span>
+            <ShoppingBasketIcon className="w-6 h-6" />
+            {itemCount <= 0 || (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {itemCount}
+              </span>
+            )}
+            <span>My Basket</span>
+            {/* {itemCount <= 0 || <Badge>{itemCount}</Badge>} */}
           </Link>
 
           <ClerkLoaded>
             <SignedIn>
               <Link
                 href="/orders"
-                className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 <Package className="w-6 h-6" />
                 <span>My Orders</span>
