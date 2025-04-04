@@ -11,14 +11,14 @@ import { formatPrice } from "@/lib/formatPrice";
 import { imageUrl } from "@/lib/imageUrl";
 import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import { Image } from "next-sanity/image";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const BasketPage = () => {
   const groupedItems = useBasketStore((state) => state.getGroupedItems());
   const { isSignedIn } = useAuth();
   const { user } = useUser();
-  // const router = useRouter();
+  const router = useRouter();
 
   const [isClient, setIsClient] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
