@@ -1,3 +1,4 @@
+import { formatPrice } from "@/lib/formatPrice";
 import { imageUrl } from "@/lib/imageUrl";
 import { Product } from "@/sanity.types";
 import { Image } from "next-sanity/image";
@@ -43,7 +44,7 @@ const ProductThumbnail = ({ product }: { product: Product }) => {
             .join(" ") || "No description available."}
         </p>
         <p className="mt-2 text-lg font-bold text-gray-900">
-          Php{product.price?.toFixed(2)}
+          {formatPrice(product?.price)}
         </p>
       </div>
     </Link>
