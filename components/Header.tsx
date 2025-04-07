@@ -12,7 +12,16 @@ import Link from "next/link";
 import Form from "next/form";
 import { Package, ShoppingBasketIcon } from "lucide-react";
 import useBasketStore from "@/app/store";
-import { Badge } from "./ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const Header = () => {
   const { user } = useUser();
@@ -62,7 +71,6 @@ const Header = () => {
               </span>
             )}
             <span>My Basket</span>
-            {/* {itemCount <= 0 || <Badge>{itemCount}</Badge>} */}
           </Link>
 
           <ClerkLoaded>
@@ -86,14 +94,57 @@ const Header = () => {
             ) : (
               <SignInButton mode="modal" />
             )}
-            {user?.passkeys.length == 0 && (
+            {/* {user?.passkeys.length == 0 && (
               <button
                 onClick={createClerkPassKey}
                 className="bg-white hover:bg-blue-700 hover:text-white animate-pulse text-blue-500 font-bold py-2 px-4 rounded border-blue-300 border"
               >
                 Create a passkey
               </button>
-            )}
+            )} */}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                  />
+                </svg>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={createClerkPassKey}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                      />
+                    </svg>
+
+                    <span>Create passkey</span>
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </ClerkLoaded>
         </div>
       </div>
