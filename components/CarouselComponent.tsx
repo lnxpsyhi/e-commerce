@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import {
   Carousel,
   CarouselContent,
@@ -7,26 +7,44 @@ import {
   CarouselNext,
 } from "./ui/carousel";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
+import React from "react";
 
-const CarouselComponent = () => {
+type PropType = {
+  images: string[];
+};
+
+const CarouselComponent: React.FC<PropType> = (props) => {
+  const { images } = props;
+  const plugin = React.useRef(
+    Autoplay({
+      delay: 6000,
+    })
+  );
+
   return (
-    <div className="p-2 m-2">
-      <Carousel>
+    <div className="w-full m-2">
+      <Carousel
+        plugins={[plugin.current]}
+        onMouseEnter={plugin.current.stop}
+        onMouseLeave={plugin.current.reset}
+      >
         <CarouselContent>
-          <CarouselItem>
-            <Image
-              className="w-full"
-              src="/1.avif"
-              alt="first"
-              width={1293}
-              height={404}
-            />
-          </CarouselItem>
-          <CarouselItem>...</CarouselItem>
-          <CarouselItem>...</CarouselItem>
+          {images.map((image, idx) => (
+            <CarouselItem key={idx}>
+              <Image
+                className="w-full h-64 sm:h-auto"
+                key={idx}
+                src={image}
+                alt={`Image ${idx}`}
+                width={1293}
+                height={404}
+              />
+            </CarouselItem>
+          ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="left-2 bg-transparent text-gray-400" />
+        <CarouselNext className="right-2 bg-transparent text-gray-400" />
       </Carousel>
     </div>
   );

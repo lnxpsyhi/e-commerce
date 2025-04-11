@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import "./global.css";
 import Header from "@/components/Header";
 import { SanityLive } from "@/sanity/lib/live";
 import Footer from "@/components/Footer";
-import CarouselComponent from "@/components/CarouselComponent";
+import "./global.css";
+import localFont from "next/font/local";
 
 export const metadata: Metadata = {
   title: {
@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description: "G-Shock",
 };
 
+const din = localFont({
+  src: "./fonts/DIN2014-Regular.ttf",
+  variable: "--font-din-2014",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,9 +27,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html className="h-full" lang="en">
-        <body className="h-full">
+        <body className={`h-full ${din.className}`}>
           <Header />
-          <CarouselComponent />
           {children}
           <Footer />
           <SanityLive />

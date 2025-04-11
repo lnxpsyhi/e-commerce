@@ -31,7 +31,7 @@ const CategorySelectorComponent = ({ categories }: CategorySelectorProps) => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full max-full relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-black hover:bg-gray-700 hover:text-white text-white font-bold py-2 px-4 rounded-md"
+          className="w-full max-full relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-black hover:bg-gray-700 hover:text-white text-white font-bold py-2 px-4 rounded-none"
         >
           {value
             ? categories.find((category) => category._id === value)?.title
@@ -39,7 +39,7 @@ const CategorySelectorComponent = ({ categories }: CategorySelectorProps) => {
           <ChevronsUpDown className="ml-2 h-4 shrink-0" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
+      <PopoverContent className="w-full p-0 rounded-none">
         <Command>
           <CommandInput
             placeholder="Search category..."
@@ -65,6 +65,7 @@ const CategorySelectorComponent = ({ categories }: CategorySelectorProps) => {
             <CommandGroup>
               {categories.map((category) => (
                 <CommandItem
+                  className="rounded-none"
                   key={category._id}
                   value={category.title}
                   onSelect={() => {
